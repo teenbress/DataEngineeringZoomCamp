@@ -1,6 +1,6 @@
 
 
-${\color{blue}Week\space 1:\space Basics\space and\space Setup }$
+${\color{blue}Module\space 1:\space Containerization\space and\space Setup }$
 - Google Cloud Platform
 - Docker
   - What docker is, why we need it
@@ -17,5 +17,5 @@ ${\color{blue}Week\space 1:\space Basics\space and\space Setup }$
   - Intro to Terraform
   - Set up GCP with Terraform: storage, BigQuery
 
-${\color{blue}Week\space 2: \space Data \space Ingestion }$  
+${\color{blue}Week\space 2: \space Workflow \space Orchestration}$  
 **Week 2: Data Ingestion**
