@@ -7,10 +7,10 @@
   - Packaging this script in docker
   - Running postgres and the script on cloud
   - Docker compose and running pgadmin and postres together with docker-compose
-- Data and PostgreSQL
+- PostgreSQL
   - Dataset: Taxi Rides NY dataset
-  - Experimentation: Taking a first look at the data
-  - Relevant SQL queries: window function, group by, union
+  - Download data, connect to Postgres
+  - Ingest data
 - Terraform
   - Intro to Terraform
   - Set up GCP with Terraform: storage, BigQuery
