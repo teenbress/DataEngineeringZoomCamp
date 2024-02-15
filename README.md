@@ -1,6 +1,4 @@
-
-
-${\color{blue}Module\space 1:\space Containerization\space and\space Setup }$
+### [Module 1: Containerization and Infrastructure as Code](https://github.com/teenbress/DataEngineeringZoomCamp/tree/main/01-docker-terraform)
 - Google Cloud Platform
 - Docker
   - What docker is, why we need it
@@ -17,5 +15,5 @@ ${\color{blue}Module\space 1:\space Containerization\space and\space Setup }$
   - Intro to Terraform
   - Set up GCP with Terraform: storage, BigQuery
 
-${\color{blue}Week\space 2: \space Workflow \space Orchestration}$  
-**Week 2: Data Ingestion**
+### Module 2: Workflow Orchestration
+
