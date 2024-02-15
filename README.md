@@ -70,6 +70,7 @@ This command connects to a Postgres server running on the localhost, on port 543
 3. Digest data with a Jupyter Notebook
 4. After running this, we can check if the schema got created inside postgres using pgcli. 
 We ran **\dt** to see the list of tables. To see details about the table run **\d yellow_taxi_data**.   
+![yellow_taxi_data](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/yellow_taxi_table.png)
 ### Terraform
   - Intro to Terraform
   - Set up GCP with Terraform: storage, BigQuery
