@@ -70,14 +70,64 @@ This command connects to a Postgres server running on the localhost, on port 543
 3. Digest data with a Jupyter Notebook
 4.Check if the schema got created inside postgres using pgcli. 
 We ran **\dt** to see the list of tables. To see details about the table run **\d yellow_taxi_data**.   
-![yellow_taxi_data](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/yellow_taxi_table.png)
-
 5. pgAdmin
    + It's not convenient to use pgcli for data exploration and querying
    + run pgAdmin with Docker
 ```
+# pgAdmin docker image
+docker run -it \
+  -e PGADMIN_DEFAULT_EMAIL='admin@admin.com' \
+  -e PGADMIN_DEFAULT_PASSWORD='root' \
+  -p 8080:80 \
+  dpage/pgadmin4
 
+# pgAdmin with Docker Network
+
+docker network create pg-network
+
+docker run -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v C:/DataEngineeringZoomCamp/week_1_basics_n_setup/2_docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data  \
+  -p 5432:5432 \
+  --network=pg-network \
+  --name pg-database \
+ postgres:13
 ```
++ Build docker image `taxi-ingest：v001` and run the python script in the docker `taxi_ingest:v001`   
+```
+  python ingest_data.py \
+--user=root  \
+--password=root \
+--host=localhost \
+--port=5432 \
+--db=ny_taxi \
+--table_name=yellow_taxi_trips \
+--url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+
+docker build -t taxi_ingest:v001 .
+# run the python script in the docker image: taxi_ingest. 
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+docker run -it \
+  --network=pg-network \
+  taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_trips \
+    --url=${URL}
+  ```
+![run python script with pgAdmin and docker ](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/docker%20with%20python%20script.png)   
+
+6. Running Postgres and pgAdmin with Docker Compose
+ ##### Docker Compose
+ Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to configure and run multiple containers, networks, and volumes in a single `YAML` file. This makes it easy to manage and configure multiple containers as part of a single application.    
+
+Docker Compose uses a `docker-compose.yaml` file to define the services (containers), networks, and volumes that make up an application. The file is written in YAML, which is a human-readable format for specifying configuration settings.   
+
 ### Terraform
   - Intro to Terraform
   - Set up GCP with Terraform: storage, BigQuery
