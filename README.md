@@ -15,7 +15,8 @@ ____________________________________________
    docker run hello world
    ```
 2. Create a dockerfile, build image, run the container.    
-  A Dockerfile is a script that defines the instructions for creating a Docker image. It specifies the base image, the environment, and the dependencies that'll be installed. It also copies a python pipeline file to the filesystem of the container. 
+  A Dockerfile is a script that defines the instructions for creating a Docker image. It specifies the base image, the environment, and the dependencies that'll be installed. It also copies a python pipeline file to the filesystem of the container.
+
    
 •	Python 3.9：`docker run -it python:3.0`  
 •	Some libraries  
@@ -32,6 +33,7 @@ docker rmi # remove an image if you want to build a new one.
 docker build --no-cache -t test:pandas  # use the --no-cache option with the docker build command to force a new build and ignore the cache
 exit 
 ```
+![docker](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/docker.png)
 3. Modify the docker file and update the python script, buid the image, run the container.   
 ```
 docker run -it \
@@ -50,7 +52,7 @@ The above command uses the **docker run** command to start a new container based
 The **-v** option is used to mount a volume from the host machine to the container. In this case, it mounts the directory C://Users//teenbress//ny_taxi_postgres_data from the host machine to /var/lib/postgresql/data inside the container. This allows the data stored in the Postgres database to persist even if the container is removed.   
    
 The **-p** option is used to map a container's port to a port on the host machine. In this case, it maps port 5432 inside the container to port 5432 on the host machine. This allows you to connect to the Postgres database running in the container from applications running on the host machine.  
-   
+_____________________________
 ### Postgres
 1. Pip install pgcli. Access the database **Postgresql** inside the container.
    ```py
@@ -149,10 +151,10 @@ docker run -it  \
       --url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
 
 ```
-
+____________________
 ### Terraform
-  - Intro to Terraform
-  - Set up GCP with Terraform: storage, BigQuery
++ Intro to Terraform
++ Set up GCP with Terraform: storage, BigQuery
 
 ### Module 2: Workflow Orchestration
 
