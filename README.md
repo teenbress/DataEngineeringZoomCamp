@@ -153,8 +153,15 @@ docker run -it  \
 ```
 ____________________
 ### Terraform
-+ Intro to Terraform
-+ Set up GCP with Terraform: storage, BigQuery
+#### 1. Intro to Terraform
+#### 1.2 Terraform commands overview
++ Scope - Identify the infrastructure for your project.  
++ Author - Write the configuration for your infrastructure.  
++ Initialize - Install the plugins Terraform needs to manage the infrastructure.  
++ Plan - Preview the changes Terraform will make to match your configuration.  
++ Apply - Make the planned changes.  
+
+#### 3. Set up GCP with Terraform: storage, BigQuery
 
 ### Module 2: Workflow Orchestration
 
