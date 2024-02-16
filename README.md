@@ -122,11 +122,33 @@ docker run -it \
   ```
 ![run python script with pgAdmin and docker ](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/docker%20with%20python%20script.png)   
 
-6. Running Postgres and pgAdmin with Docker Compose
- ##### Docker Compose
+6. ##### Docker Compose
  Docker Compose is a tool for defining and running multi-container Docker applications. It allows you to configure and run multiple containers, networks, and volumes in a single `YAML` file. This makes it easy to manage and configure multiple containers as part of a single application.    
 
 Docker Compose uses a `docker-compose.yaml` file to define the services (containers), networks, and volumes that make up an application. The file is written in YAML, which is a human-readable format for specifying configuration settings.   
+Some docker compose commands:
+```
+docker-compose up ## run the YAML file
+docker-compose down ## shut down the containers
+docker-compose upm-d ## start the containers in detached mode
+```
+When we run `docker-compose` - the two services we specified in the `YAML` file are added as part of the same network, which is given a default name by Docker (we can specify the network name but we haven't in our example). The `pg-network` should be irrelevant at this point. So we actually need to find the default network created. To do this run:
+`docker network ls`. In my case, the network is `2_docker_sql_defauts`.  
+We also need to replace the host with `pgdatabase` which is what we specified in the `YAML` file as well.  
+So the new command we run after running with docker compose would be sth like:
+```
+docker run -it  \
+    --network=<default network created> \
+    taxi_ingest:v001 \
+      --user=root \
+      --password=root \
+      --host=pgdatabase \
+      --port=5432 \
+      --db=ny_taxi \
+      --table_name=yellow_taxi_data \
+      --url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+
+```
 
 ### Terraform
   - Intro to Terraform
