@@ -51,8 +51,8 @@ The **-v** option is used to mount a volume from the host machine to the contain
    
 The **-p** option is used to map a container's port to a port on the host machine. In this case, it maps port 5432 inside the container to port 5432 on the host machine. This allows you to connect to the Postgres database running in the container from applications running on the host machine.  
    
-### PostgreSQL
-1. Access the database **Postgresql** inside the container.
+### Postgres
+1. Pip install pgcli. Access the database **Postgresql** inside the container.
    ```py
    pip install pgcli
    pgcli # test if installed successfully
@@ -68,9 +68,16 @@ This command connects to a Postgres server running on the localhost, on port 543
 **-u** flag specifies the username,   
 **-d** flag specifies the database name.   
 3. Digest data with a Jupyter Notebook
-4. After running this, we can check if the schema got created inside postgres using pgcli. 
+4.Check if the schema got created inside postgres using pgcli. 
 We ran **\dt** to see the list of tables. To see details about the table run **\d yellow_taxi_data**.   
 ![yellow_taxi_data](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/yellow_taxi_table.png)
+
+5. pgAdmin
+   + It's not convenient to use pgcli for data exploration and querying
+   + run pgAdmin with Docker
+```
+
+```
 ### Terraform
   - Intro to Terraform
   - Set up GCP with Terraform: storage, BigQuery
