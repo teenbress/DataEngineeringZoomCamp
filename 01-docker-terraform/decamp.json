@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "decamp-415001",
+  "private_key_id": "f7ebe99ba5ff49dceb24e971d46c9802ea573738",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDFlhWXmUNlL6RO\nDPtdch46AMEvT15JoGC9UGl+TXHYcqYShSn4U5e8iiPqHZyXipCSAArTGWjwRnSF\nojUgh7Ohk6K4jUulsfpqkBWNmULQRzKbnlShwhqpdoeHkqA36s6/aus6uG5aX0Zm\nWqmoCvW5xCWUmhK93TALRmPv/tJQyTvYSV4++OfHuOyEMxdhtotrlNjSddA7kre0\n5I97n9x5d8QVxzUU3/+9XJbBKqWxcgsEmdnJmXegpPc8bBAG8CT0IP1sHcs6DphA\n89QKL4c2e1DtvvoRzteQCxyZNX1Ii5r18r508nLq/3tMLElSE1E48dAZuez2ncGZ\nAbwFH4EtAgMBAAECggEAHO0ggx2udrFXWg/feuo6j55NqfnyIVBH6V9M2m9HE/uQ\n4ZQ6NT8zrygAIwWrx6nDCYTVENue99Iwu+Gn6nfDbgu5nlAdO4hHU3N9nEnMNMa/\nm3W+CSJsGdQe+lOWfikzlGV4Q5P9n+Bj45cxUEcue0BCijNWPBKWNohbGCcTrjzN\n2mXu6PggbCwjgTa3X/sERZrpQEYBy9ZWQShpQoNPstG7Xlw/tre6h9lGKy5uKD1v\nb8fScSDxyiFpt1DEwh5oR2JIJp8iHEq695ODW6tTMYm0Wjlg983INEWiDSmhAjLw\niCv80dKrXuRqBsW+fr4LIzIwcaclt2mzQ8QUE9DqgQKBgQDhLfe42LiJxk6PXapM\nQYZhKSZW8VPeocTtib12FLBEN17LEWPYXInbmd6Of/txE+e+R5U4XgwHSfMSdqJU\nkJ1ROV0S5d/nKR4REwxw6RbOeo/noGjGnYzqwKcLB0RW24VQTOVqkpzNQj7EtXuf\nTPBKWtGs4q28BQPB+vFcyIDDbQKBgQDgoUeJ62uKn4SMJ5vsC8eDABvZuY5uQ1Zi\nsjLyvfGhWm7v3N54gp0pcj/So3Aj70O8ECOJIKVcgw/DzQvBOn+JENAfRvU6z6qZ\n4Avjz70IYiM0yz4g9WsOGCuWcDYQpQgIfHPhRt9Y9dRQNHrdvk79EaqWI28XYX6a\n0F0WOXVcwQKBgCAuR5bdMhJOiu+mPS5EtwWvsdD/EDNi/xfLdY4oisBVAXEX/SLw\npqsBpHLNC4wvghEJfePeXO21vc1Hsw9O04zGG+0VeRg6IhfilwaT6TR9A4/gttib\nr4XlHnpPAY9ANB8zvh2q8knLS9kk7pPnlPerXwfMJXQXa2APkurlpLFJAoGAeRPV\nmKyxicXTzyvmaoQq5Ryg5mmTMTHQlWBR/++MF5nEJDwcGj7k8ZsodaQs5OGp0+ur\nC9Xx6/yk+bhDNsMOTVYnqEQ6GJoo7coK/p9R1/v12BYZBfDi5HT4wZz4N16NBu32\nFB58ctoGt7ih5XYX42arWUP+NE8Ty+S12C3eacECgYBf4ZNvCiFOOoswYzRQSU9Q\n++ZydV0sKlY3n74PsU5zxtIQ7S2SsCRZDAS7xgjyPWBc/y+2qDy3fDPfBPiLkaCI\ntWoa9KreGj5/rKWgxWeY4L3lVjvOoHefb8UBjD2Gzqk/zs8Oh59YnnWV8fBRdnRl\nuuHpk3FvRk9SaRTfd001aQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "teenbress-de@decamp-415001.iam.gserviceaccount.com",
+  "client_id": "113769240337841149377",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/teenbress-de%40decamp-415001.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
