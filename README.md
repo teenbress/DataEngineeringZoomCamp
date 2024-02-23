@@ -164,7 +164,23 @@ ____________________
 + terraform destroy - Remove the stack from the infrastructure.   
 You may access `main.tf` from [this link](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/1_terraform_gcp/terraform/terraform_basic/main.tf) and `variables.tf` from [this link](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/1_terraform_gcp/terraform/terraform_with_variables/variables.tf). Take a look at them to understand the details of the implementation. Copy them to a new folder within your work directory so that the subfolder only contains the Terraform configuration files. 
 #### 3. Set up GCP with Terraform: storage, BigQuery
-![A guilder for how to set virtual environment on GCP](https://itsadityagupta.hashnode.dev/setting-up-the-development-environment-on-google-virtual-machine#heading-installing-terraform)
+[A guilder for how to set virtual environment on GCP](https://itsadityagupta.hashnode.dev/setting-up-the-development-environment-on-google-virtual-machine#heading-installing-terraform)     
++ Set `GOOGLE_APPLICATION_CREDENTIALS` to point to the user account key json file.  
+  ```
+  export GOOGLE_APPLICATION_CREDENTIALS=~/.gc/ny-rides.json
+  ```
+  
++ Now authenticate:  
+```
+gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
+```
++ Alternatively, you can authenticate using OAuth like shown in the video:  
+```
+gcloud auth application-default login
+PROJECT_NAME="decamp-415001"
+gcloud auth application-default set-quota-project ${PROJECT_NAME}
+```
+
 
 ### Module 2: Workflow Orchestration
 
