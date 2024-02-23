@@ -157,11 +157,14 @@ ____________________
 #### 1.2 Terraform commands overview
 + Scope - Identify the infrastructure for your project.  
 + Author - Write the configuration for your infrastructure.  
-+ Initialize - Install the plugins Terraform needs to manage the infrastructure.  
-+ Plan - Preview the changes Terraform will make to match your configuration.  
-+ Apply - Make the planned changes.  
-
++ terraform init - Install the plugins Terraform needs to manage the infrastructure.
++ terraform fmt (optional): formats your configuration files so that the format is consistent.
++ terraform plan - Preview the changes Terraform will make to match your configuration.  
++ terraform apply - Make the planned changes.
++ terraform destroy - Remove the stack from the infrastructure.
+You may access `main.tf` from [this link](https://github.com/ziritrion/dataeng-zoomcamp/blob/main/1_intro/terraform/main.tf) and `variables.tf` from [this link](https://github.com/ziritrion/dataeng-zoomcamp/blob/main/1_intro/terraform/variables.tf). Take a look at them to understand the details of the implementation. Copy them to a new folder within your work directory so that the subfolder only contains the Terraform configuration files. 
 #### 3. Set up GCP with Terraform: storage, BigQuery
+[A guilder for how to set virtual environment on GCP](https://itsadityagupta.hashnode.dev/setting-up-the-development-environment-on-google-virtual-machine#heading-installing-terraform)
 
 ### Module 2: Workflow Orchestration
 
