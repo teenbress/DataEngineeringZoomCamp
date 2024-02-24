@@ -80,8 +80,9 @@ Then I started `pgcli`
 pgcli -h localhost -p 5432 -u root -d ny_taxi
 ```
 Run codes to ensure there's a connection to the database and check if it's working.  
-- Run the command **\dt** to see a list of tables available in our database - This returned empty as we have not populated the database with data
-![db](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/homework1.png)
+- Run the command **\dt** to see a list of tables available in our database - This returned empty as we have not populated the database with data   
+![db](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/homework1.png)   
+
 ## Question 3. Count records 
 
 How many taxi trips were totally made on September 18th 2019? **15612**
