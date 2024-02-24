@@ -182,5 +182,4 @@ gcloud auth application-default set-quota-project ${PROJECT_NAME}
 ```
 
 
-### Module 2: Workflow Orchestration
 
