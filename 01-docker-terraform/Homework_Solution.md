@@ -85,7 +85,8 @@ Run codes to ensure there's a connection to the database and check if it's worki
 
 ## Question 3. Count records 
 
-How many taxi trips were totally made on September 18th 2019? **15612**
+How many taxi trips were totally made on September 18th 2019?    
+**15612**
 ```
 SELECT count(1)
 FROM green_taxi_trips
@@ -105,7 +106,7 @@ Which was the pick up day with the longest trip distance?
 Use the pick up time for your calculations.
 
 - 2019-09-18
-- 2019-09-16
+- 2019-09-16   
 **2019-09-26**
 - 2019-09-21
 
@@ -132,7 +133,7 @@ Consider lpep_pickup_datetime in '2019-09-18' and ignoring Borough has Unknown
 Which were the 3 pick up Boroughs that had a sum of total_amount superior to 50000?
  
 - "Brooklyn" "Manhattan" "Queens"
-- "Bronx" "Brooklyn" "Manhattan"
+- "Bronx" "Brooklyn" "Manhattan"   
 **"Bronx" "Manhattan" "Queens"**
 - "Brooklyn" "Queens" "Staten Island"
 ```
