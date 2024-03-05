@@ -137,3 +137,14 @@ Additional definitions:
     * Ideally, a task should flow from `none`, to `scheduled`, to `queued`, to `running`, and finally to `success`.
 ## Setting up Airflow with Docker
 [video source: Lightweight Local Setup for Airflow](https://www.youtube.com/watch?v=A1p5LQ0zzaQ&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=24)
+## Setting up Mage with Docker
+```
+git clone https://github.com/mage-ai/mage-zoomcamp.git mage-zoomcamp
+cd mage-zoomcamp
+
+# rename dev.env to .env
+cp dev.env .env
+
+docker compose build
+docker compose up
+```
