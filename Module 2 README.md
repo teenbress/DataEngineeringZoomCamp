@@ -64,39 +64,77 @@ The main difference between them is the order of steps. In DWs, ETL (Schema on W
 ## Introduction to Workflow orchestration 
 _[Video source](https://www.youtube.com/watch?v=0yK7LXwYeD0&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=17)_
 - What is an Orchestration Pipeline? 
-There are several tools available for workflow orchestration in data engineering, some of them are:
-`Apache Airflow`, 'Luigi', 'AWS Glue', 'Prefect', 'Google cloud composer'(by GCP), 'Microsoft Azure Data Factory'(BY AZURE).   
-- Directed Acyclic Graph(DAG)
 
-## Airflow Architecture
-[note source](https://github.com/ziritrion/dataeng-zoomcamp/blob/main/notes/2_data_ingestion.md#data-ingestion)
-## Mage in Action
 We will be using:
 + Docker
-+ Mage in Docker environment
++ Airflow in Docker environment
 + Python pandas
 + Postgres, SQL
-+ APACHE ARROW
++ Apache Arrow
 + GCP
-+ NYC Taxi dataset
++ NYC Taxi dataset   
+In this module we will create a more complex pipeline:
+```
+(web)
+  ↓
+DOWNLOAD
+  ↓
+(csv)
+  ↓
+PARQUETIZE
+  ↓
+(parquet) ------→ UPLOAD TO S3
+  ↓
+UPLOAD TO GCS
+  ↓
+(parquet in GCS)
+  ↓
+UPLOAD TO BIGQUERY
+  ↓
+(table in BQ)
+```
+_Parquet_ is a [columnar storage datafile format](https://parquet.apache.org/) which is more efficient than CSV.  
+This ***Data Workflow*** has more steps and even branches. This type of workflow is often called a ***Directed Acyclic Graph*** (DAG) because it lacks any loops and the data flow is well defined.
 
-![Mage workflow](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/mage%20workflow.png)
+The steps in capital letters are our ***jobs*** and the objects in between are the jobs' outputs, which behave as ***dependencies*** for other jobs. Each job may have its own set of ***parameters*** and there may also be global parameters which are the same for all of the jobs.
 
-**Mage is an open-source pipeline tool for orchestrating, transforming and integrating data.**
-Mage's main components:   
-Projects --> Pipelines--> Blocks --> ETL   
-   
-Other types of built-in Mage blocks:   
+A ***Workflow Orchestration Tool*** allows us to define data workflows and parametrize them; it also provides additional tools such as history and logging.
 
-+ Sensors - trigger on some event
-+ Conditionals
-+ Dynamics - can create dynamic children
-+ Webhooks
+The tool we will focus on in this course is **[Apache Airflow](https://airflow.apache.org/)**, There are several tools available for workflow orchestration in data engineering, some of them are:
+`Apache Airflow`, 'Luigi', 'AWS Glue', 'Prefect', 'Google cloud composer'(by GCP), 'Microsoft Azure Data Factory'(BY AZURE).   
+   https://airflow.apache.org/docs/apache-airflow/2.0.1/concepts.html
 
-Other notable functionality:
-   
-+ Data Integration
-+ Unified Pipeline
-+ Multi-user events
-+ Templating
-## Mage Set Up
+## Airflow Architecture
+[source](https://airflow.apache.org/docs/apache-airflow/2.0.1/concepts.html)
+![image](https://airflow.apache.org/docs/apache-airflow/2.0.1/_images/arch-diag-basic.png)
+* A **metadata database** (Postgres) used by the scheduler, the executor and the web server to store state. The backend of Airflow.
+* The **scheduler** and **web server** handles both triggering scheduled workflows as well as submitting _tasks_ to the executor to run. The scheduler is the main "core" of Airflow.
+* The **executor** handles running tasks. In a default installation, the executor runs everything inside the scheduler but most production-suitable executors push task execution out to _workers_.
+* A **worker** simply executes tasks given by the scheduler.
+* A **DAG directory**; a folder with _DAG files_ which is read by the scheduler and the executor (an by extension by any worker the executor might have) **DAG** contains python code, representing the data pipelines to be run by  airflow. The location is specified in the Airflow configuration file, which need to be accessible by the web server, scheduler, and workers.
+
+* Additional components (not shown in the diagram):
+  * `redis`: a _message broker_ that forwards messages from the scheduler to workers.
+  * `flower`: app for monitoring the environment, available at port `5555` by default.
+  * `airflow-init`: initialization service which we will customize for our needs.
+
+Airflow will create a folder structure when running:
+* `./dags` - `DAG_FOLDER` for DAG files
+* `./logs` - contains logs from task execution and scheduler.
+* `./plugins` - for custom plugins
+
+Additional definitions:
+* ***DAG***: Directed acyclic graph, specifies the dependencies between a set of tasks with explicit execution order, and has a beginning as well as an end. (Hence, “acyclic”). A _DAG's Structure_ is as follows:
+  * DAG Definition
+  * Tasks (eg. Operators)
+  * Task Dependencies (control flow: `>>` or `<<` )  
+* ***Task***: a defined unit of work. The Tasks themselves describe what to do, be it fetching data, running analysis, triggering other systems, or more. Common Types of tasks are:
+  * ***Operators*** (used in this workshop) are predefined tasks. They're the most common.
+  * ***Sensors*** are a subclass of operator which wait for external events to happen.
+  * ***TaskFlow decorators*** (subclasses of Airflow's BaseOperator) are custom Python functions packaged as tasks.
+* ***DAG Run***: individual execution/run of a DAG. A run may be scheduled or triggered.
+* ***Task Instance***: an individual run of a single task. Task instances also have an indicative state, which could be `running`, `success`, `failed`, `skipped`, `up for retry`, etc.
+    * Ideally, a task should flow from `none`, to `scheduled`, to `queued`, to `running`, and finally to `success`.
+## Setting up Airflow with Docker
+[video source](https://www.youtube.com/watch?v=lqDMzReAtrw&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19)
+
