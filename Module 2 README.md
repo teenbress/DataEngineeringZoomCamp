@@ -136,5 +136,4 @@ Additional definitions:
 * ***Task Instance***: an individual run of a single task. Task instances also have an indicative state, which could be `running`, `success`, `failed`, `skipped`, `up for retry`, etc.
     * Ideally, a task should flow from `none`, to `scheduled`, to `queued`, to `running`, and finally to `success`.
 ## Setting up Airflow with Docker
-[video source](https://www.youtube.com/watch?v=lqDMzReAtrw&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19)
-
+[video source: Lightweight Local Setup for Airflow](https://www.youtube.com/watch?v=A1p5LQ0zzaQ&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=24)
