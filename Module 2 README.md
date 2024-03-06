@@ -148,3 +148,179 @@ cp dev.env .env
 docker compose build
 docker compose up
 ```
+## Ingesting data to local Postgres with Mage
+
+We have a new profile in io_config.yaml and define some variables:
+```yaml
+dev:
+    # PostgresSQL
+  POSTGRES_CONNECT_TIMEOUT: 10
+  POSTGRES_DBNAME: "{{ env_var('POSTGRES_DBNAME') }}"
+  POSTGRES_SCHEMA: "{{ env_var('POSTGRES_SCHEMA') }}" # Optional
+  POSTGRES_USER: "{{ env_var('POSTGRES_USER') }}"
+  POSTGRES_PASSWORD: "{{ env_var('POSTGRES_PASSWORD') }}"
+  POSTGRES_HOST: "{{ env_var('POSTGRES_HOST') }}"
+  POSTGRES_PORT: "{{ env_var('POSTGRES_PORT') }}"
+
+```
+
+We will create a new pipeline:
+- Go to http://localhost:6789/pipelines
+we will start a new ETL Pipeline:
+- Data loader:
+To a start we have to declare data types:
+```python
+    taxi_dtypes = {
+        'VendorID': pd.Int64Dtype(),
+        'passenger_count': pd.Int64Dtype(),
+        'trip_distance': float, 
+        'RatecCodeID': pd.Int64Dtype(),
+        'store_and_fwd_flag': str,
+        'PULocationID': pd.Int64Dtype(),
+        'DOLocationID': pd.Int64Dtype(),
+        'payment_type': pd.Int64Dtype(),
+        'fare_amount': float, 
+        'mta_tax': float,
+        'tip_amount': float,
+        'tolls_amount': float, 
+        'improvement_surcharge': float,
+        'total_amount': float,
+        'congestion_surcharge': float
+
+    }
+```
+
+And we have to feed dates columns to parsing by pandas:
+```python
+parse_dates = ['tpep_pickup_datetime', 'tpep_dropoff_datetime']
+```
+
+Finally our Data Loader would be:
+```python
+import io
+import pandas as pd
+import requests
+if 'data_loader' not in globals():
+    from mage_ai.data_preparation.decorators import data_loader
+if 'test' not in globals():
+    from mage_ai.data_preparation.decorators import test
+
+
+@data_loader
+def load_data_from_api(*args, **kwargs):
+    """
+    Template for loading data from API
+    """
+    url = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz'
+
+    taxi_dtypes = {
+        'VendorID': pd.Int64Dtype(),
+        'passenger_count': pd.Int64Dtype(),
+        'trip_distance': float, 
+        'RatecCodeID': pd.Int64Dtype(),
+        'store_and_fwd_flag': str,
+        'PULocationID': pd.Int64Dtype(),
+        'DOLocationID': pd.Int64Dtype(),
+        'payment_type': pd.Int64Dtype(),
+        'fare_amount': float, 
+        'mta_tax': float,
+        'tip_amount': float,
+        'tolls_amount': float, 
+        'improvement_surcharge': float,
+        'total_amount': float,
+        'congestion_surcharge': float
+
+    }
+
+    parse_dates = ['tpep_pickup_datetime', 'tpep_dropoff_datetime']
+
+    return pd.read_csv(url, sep=",", compression="gzip", dtype=taxi_dtypes, parse_dates=parse_dates)
+
+
+@test
+def test_output(output, *args) -> None:
+    """
+    Template code for testing the output of the block.
+    """
+    assert output is not None, 'The output is undefined'
+
+```
+
+And then we'll be do some transformation block. We will clean data with zero "passenger_count"
+```python
+if 'transformer' not in globals():
+    from mage_ai.data_preparation.decorators import transformer
+if 'test' not in globals():
+    from mage_ai.data_preparation.decorators import test
+
+
+@transformer
+def transform(data, *args, **kwargs):
+    """
+    Template code for a transformer block.
+
+    Add more parameters to this function if this block has multiple parent blocks.
+    There should be one parameter for each output variable from each parent block.
+
+    Args:
+        data: The output from the upstream parent block
+        args: The output from any additional upstream blocks (if applicable)
+
+    Returns:
+        Anything (e.g. data frame, dictionary, array, int, str, etc.)
+    """
+    # Specify your transformation logic here
+
+    return data[data['passenger_count'] > 0]
+
+
+@test
+def test_output(output, *args) -> None:
+    """
+    Template code for testing the output of the block.
+    """
+    assert output['passenger_count'].isin([0]).sum() == 0, 'Ther are rides with zero passengers'
+
+```
+
+Then we will do some Export Block using profile created in previous step (dev), and declaring schema name and table name:
+
+```python
+from mage_ai.settings.repo import get_repo_path
+from mage_ai.io.config import ConfigFileLoader
+from mage_ai.io.postgres import Postgres
+from pandas import DataFrame
+from os import path
+
+if 'data_exporter' not in globals():
+    from mage_ai.data_preparation.decorators import data_exporter
+
+
+@data_exporter
+def export_data_to_postgres(df: DataFrame, **kwargs) -> None:
+    """
+    Template for exporting data to a PostgreSQL database.
+    Specify your configuration settings in 'io_config.yaml'.
+
+    Docs: https://docs.mage.ai/design/data-loading#postgresql
+    """
+    schema_name = 'ny_taxi'  # Specify the name of the schema to export data to
+    table_name = 'yellow_cab_data'  # Specify the name of the table to export data to
+    config_path = path.join(get_repo_path(), 'io_config.yaml')
+    config_profile = 'dev'
+
+    with Postgres.with_config(ConfigFileLoader(config_path, config_profile)) as loader:
+        loader.export(
+            df,
+            schema_name,
+            table_name,
+            index=False,  # Specifies whether to include index in exported table
+            if_exists='replace',  # Specify resolution policy if table name already exists
+        )
+
+```
+finally, we will check the result:
+![result](https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/images/mage%20result.png)
+### Ingesting data to GCP
+
+
