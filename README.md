@@ -24,7 +24,7 @@
 * Preparing the environment for the course
 * Homework
 
-[More details](01-docker-terraform/)
+[More details][https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/Module1%20README.md]
 
 
 ### [Module 2: Workflow Orchestration](02-workflow-orchestration/)
@@ -34,7 +34,7 @@
 * Workflow orchestration with Mage
 * Homework
 
-[More details](02-workflow-orchestration/)
+[More details][https://github.com/teenbress/DataEngineeringZoomCamp/blob/main/Module%202%20README.md]
 
 
 ### [Workshop 1: Data Ingestion](cohorts/2024/workshops/dlt.md)
